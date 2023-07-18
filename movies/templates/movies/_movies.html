@@ -1,0 +1,11 @@
+{% for movie in movies %}
+  {% if forloop.last %}
+    <tr hx-get="/movies?page={{next_page}}" hx-trigger="revealed" hx-swap="afterend">
+  {% else %}
+    <tr>
+  {% endif %}
+    <td>{{ movie.title }}</td>
+    <td>{{ movie.genre }}</td>
+    {% include "movies/_delete.html" %}
+  </tr>
+{% endfor %}
