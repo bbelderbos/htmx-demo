@@ -2,15 +2,40 @@
 <html>
 <head>
     <title>Movie List</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
 </head>
 <body>
     <h1>Movie List</h1>
-    <ul>
-        {% for movie in movies %}
-        <li>{{ movie.title }} - {{ movie.genre }}</li>
-        {% empty %}
-        <li>No movies found.</li>
-        {% endfor %}
-    </ul>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Genre</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for movie in movies %}
+            <tr>
+                <td>{{ movie.title }}</td>
+                <td>{{ movie.genre }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="2">No movies found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
 </html>
+
