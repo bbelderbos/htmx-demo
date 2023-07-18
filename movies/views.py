@@ -12,10 +12,7 @@ def movie_list(request):
 
 def get_more_movies(request):
     page = int(request.GET["page"])
-    # TODO: what if I go beyond the number of movies?
     movies = Movie.objects.all()[page*NUMBER_MOVIES_PER_PAGE:(page+1)*NUMBER_MOVIES_PER_PAGE]
-    print(f"called get_more_movies with page {page}")
-    print([mo.id for mo in movies])
     context = {
         'movies': movies,
         'next_page': page + 1,
