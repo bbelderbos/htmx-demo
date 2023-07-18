@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movie List</title>
+</head>
+<body>
+    <h1>Movie List</h1>
+    <ul>
+        {% for movie in movies %}
+        <li>{{ movie.title }} - {{ movie.genre }}</li>
+        {% empty %}
+        <li>No movies found.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
