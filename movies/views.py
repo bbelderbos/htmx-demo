@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
 from django.http import HttpResponse
@@ -11,14 +12,21 @@ def movie_list(request):
 
 
 def get_more_movies(request):
-    page = int(request.GET["page"])
-    # TODO: what if I go beyond the number of movies?
-    movies = Movie.objects.all()[page*NUMBER_MOVIES_PER_PAGE:(page+1)*NUMBER_MOVIES_PER_PAGE]
-    print(f"called get_more_movies with page {page}")
-    print([mo.id for mo in movies])
+    try:
+        page_number = int(request.GET.get("page", 1))
+    except ValueError:
+        context = {
+            'movies': [], 'next_page': None,
+        }
+        return render(request, 'movies/_movies.html', context)
+
+    movies = Movie.objects.all()
+    paginator = Paginator(movies, NUMBER_MOVIES_PER_PAGE)
+    page = paginator.get_page(page_number)
+
     context = {
-        'movies': movies,
-        'next_page': page + 1,
+        'movies': page.object_list,
+        'next_page': page_number + 1 if page.has_next() else None,
     }
     return render(request, 'movies/_movies.html', context)
 
