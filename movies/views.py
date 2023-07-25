@@ -8,7 +8,11 @@ NUMBER_MOVIES_PER_PAGE = 20
 
 def movie_list(request):
     movies = Movie.objects.all()[:NUMBER_MOVIES_PER_PAGE]
-    return render(request, 'movies/movie_list.html', {'movies': movies})
+    context = {
+        'movies': movies,
+        'next_page': 1,
+    }
+    return render(request, 'movies/movie_list.html', context)
 
 
 def get_more_movies(request):
@@ -40,3 +44,12 @@ def delete_movie(request, pk):
     else:
         movie.delete()
     return HttpResponse(status=200)
+
+
+def search_movies(request):
+    search = request.POST.get('search', '')
+    if search:
+        movies = Movie.objects.filter(title__icontains=search)
+    else:
+        movies = Movie.objects.all()[:NUMBER_MOVIES_PER_PAGE]
+    return render(request, 'movies/_movies.html', {'movies': movies})

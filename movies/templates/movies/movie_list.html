@@ -21,6 +21,13 @@
 </head>
 <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
     <h1>Movie List</h1>
+    <input class="form-control" type="search"
+       name="search" placeholder="Search movies ..."
+       hx-post="/search"
+       hx-trigger="keyup changed delay:500ms, search"
+       hx-target="#search-results"
+       hx-indicator=".htmx-indicator">
+
     <table>
         <thead>
             <tr>
@@ -29,18 +36,8 @@
                 <th></th>
             </tr>
         </thead>
-        <tbody hx-target="closest tr" hx-swap="outerHTML swap:1s">
-            {% for movie in movies %}
-              {% if forloop.last %}
-                <tr hx-get="/movies?page=1" hx-trigger="revealed" hx-swap="afterend">
-              {% else %}
-                <tr>
-              {% endif %}
-                <td>{{ movie.title }}</td>
-                <td>{{ movie.genre }}</td>
-                {% include "movies/_delete.html" %}
-              </tr>
-            {% endfor %}
+        <tbody hx-target="closest tr" hx-swap="outerHTML swap:1s" id="search-results">
+          {% include 'movies/_movies.html' %}
         </tbody>
     </table>
 </body>
