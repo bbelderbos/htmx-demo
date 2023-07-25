@@ -66,7 +66,11 @@ def edit_movie(request, pk):
         return render(request, 'movies/_movie_detail.html', {'movie': movie})
 
     # render the form
-    return render(request, 'movies/_movie_form.html', {'movie': movie})
+    genres = Movie.objects.values_list(
+        'genre', flat=True
+    ).distinct().order_by("genre")
+    context = {'movie': movie, 'genres': genres}
+    return render(request, 'movies/_movie_form.html', context)
 
 
 def search_movies(request):

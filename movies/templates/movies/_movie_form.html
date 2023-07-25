@@ -5,7 +5,11 @@
   </div>
   <div class="form-group">
     <label>Genre</label>
-    <input type="text" name="genre" value="{{movie.genre}}">
+    <select name="genre">
+      {% for genre in genres %}
+        <option value="{{genre}}" {% if movie.genre == genre %}selected{% endif %}>{{genre}}</option>
+      {% endfor %}
+    </select>
   </div>
   <button class="btn">Submit</button>
   <button class="btn" hx-get="{{movie.id}}/edit?cancel=1">Cancel</button>
