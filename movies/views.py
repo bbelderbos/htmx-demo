@@ -1,5 +1,6 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render
+from django.http import QueryDict
 from django.views.decorators.http import require_http_methods
 from django.http import HttpResponse
 from .models import Movie
@@ -46,6 +47,32 @@ def delete_movie(request, pk):
     return HttpResponse(status=200)
 
 
+def edit_movie(request, pk):
+    try:
+        movie = Movie.objects.get(pk=pk)
+    except Movie.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'PUT':
+        qd = QueryDict(request.body.decode())
+        movie.title = qd['title']
+        movie.genre = qd['genre']
+        movie.save()
+        # render the initial static html with movie
+        return render(request, 'movies/_movie_detail.html', {'movie': movie})
+
+    # if user cancels out of form, show static html again
+    if request.GET.get("cancel", False):
+        return render(request, 'movies/_movie_detail.html', {'movie': movie})
+
+    # render the form
+    genres = Movie.objects.values_list(
+        'genre', flat=True
+    ).distinct().order_by("genre")
+    context = {'movie': movie, 'genres': genres}
+    return render(request, 'movies/_movie_form.html', context)
+
+
 def search_movies(request):
     search = request.POST.get('search', '')
     if search:
@@ -53,3 +80,13 @@ def search_movies(request):
     else:
         movies = Movie.objects.all()[:NUMBER_MOVIES_PER_PAGE]
     return render(request, 'movies/_movies.html', {'movies': movies})
+
+
+def show_movie(request, pk):
+    try:
+        movie = Movie.objects.get(pk=pk)
+    except Movie.DoesNotExist:
+        return HttpResponse(status=404)
+
+    context = {'movie': movie}
+    return render(request, 'movies/movie.html', context)

@@ -1,0 +1,7 @@
+<div hx-target="this" hx-swap="outerHTML">
+  <div><label>Title</label>: {{movie.title}}</div>
+  <div><label>Genre</label>: {{movie.genre}}</div>
+  <button hx-get="{{movie.id}}/edit" class="btn btn-primary">
+    Click To Edit
+  </button>
+</div>

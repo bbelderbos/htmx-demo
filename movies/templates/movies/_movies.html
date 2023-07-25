@@ -4,7 +4,7 @@
   {% else %}
     <tr>
   {% endif %}
-    <td>{{ movie.title }}</td>
+  <td><a href="{% url 'movies:show_movie' movie.id %}">{{ movie.title }}</a></td>
     <td>{{ movie.genre }}</td>
     {% include "movies/_delete.html" %}
   </tr>

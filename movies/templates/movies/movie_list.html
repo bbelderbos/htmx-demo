@@ -1,26 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Movie List</title>
-    <script src="https://unpkg.com/htmx.org@1.9.3"></script>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 8px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        tr.htmx-swapping td {
-          opacity: 0;
-          transition: opacity 1s ease-out;
-        }
-    </style>
-</head>
-<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
-    <h1>Movie List</h1>
+{% extends "base.html" %}
+{% block content %}
     <input class="form-control" type="search"
        name="search" placeholder="Search movies ..."
        hx-post="/search"
@@ -40,6 +19,4 @@
           {% include 'movies/_movies.html' %}
         </tbody>
     </table>
-</body>
-</html>
-
+{% endblock %}

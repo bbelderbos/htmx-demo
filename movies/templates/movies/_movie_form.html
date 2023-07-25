@@ -1,0 +1,16 @@
+<form hx-put="{{movie.id}}/edit" hx-target="this" hx-swap="outerHTML">
+  <div>
+    <label>Title</label>
+    <input type="text" name="title" value="{{movie.title}}">
+  </div>
+  <div class="form-group">
+    <label>Genre</label>
+    <select name="genre">
+      {% for genre in genres %}
+        <option value="{{genre}}" {% if movie.genre == genre %}selected{% endif %}>{{genre}}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <button class="btn">Submit</button>
+  <button class="btn" hx-get="{{movie.id}}/edit?cancel=1">Cancel</button>
+</form>
