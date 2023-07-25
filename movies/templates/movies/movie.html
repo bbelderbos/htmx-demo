@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block content %}
+  {% include "movies/_movie_detail.html" %}
+
+  <br><hr>
+  <a href="{% url 'movies:movie_list' %}">Back to all movies</a>
+{% endblock %}
