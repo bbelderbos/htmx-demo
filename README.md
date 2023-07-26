@@ -33,8 +33,8 @@ Here is a quick animation of the htmx examples we implemented:
 
 Doc links (in order of demo animation):
 - [Infinite scroll](https://htmx.org/examples/infinite-scroll/)
-- [Delete Row](https://htmx.org/examples/delete-row/)
 - [Click to edit](https://htmx.org/examples/click-to-edit/)
+- [Delete Row](https://htmx.org/examples/delete-row/)
 - [Active Search](https://htmx.org/examples/active-search/)
 
 Related htmx Pybites YouTube videos:
