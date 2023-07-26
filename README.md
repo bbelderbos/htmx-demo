@@ -28,7 +28,7 @@ Browse to http://locahost:8000 - enjoy 😎
 
 Here is a quick animation of the htmx examples we implemented:
 
-<video src="[LINK](https://github.com/bbelderbos/htmx-demo/assets/387927/68a78871-2d36-49c9-9e87-3dad982ba811)" controls="controls" style="max-width: 730px;">
+<video src="https://github.com/bbelderbos/htmx-demo/assets/387927/68a78871-2d36-49c9-9e87-3dad982ba811" controls="controls" style="max-width: 730px;">
 </video>
 
 Doc links (in order of demo animation):
